@@ -14,8 +14,8 @@ export default class Map extends Component {
           region: {
             latitude,
             longitude,
-            latitudeDelta: 0.0143,
-            longitudeDelta: 0.0134
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
           }
         });
       },
@@ -31,12 +31,7 @@ export default class Map extends Component {
     const { region } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <MapView
-          style={{ flex: 1 }}
-          region={region}
-          showsUserLocation
-          loadingEnabled
-        />
+        <MapView style={{ flex: 1 }} region={region} showsUserLocation loadingEnabled />
       </View>
     );
   }
