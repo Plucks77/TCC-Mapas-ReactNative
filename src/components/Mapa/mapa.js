@@ -14,21 +14,26 @@ export default class Map extends Component {
           region: {
             latitude,
             longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
+            latitudeDelta: 0.0222,
+            longitudeDelta: 0.0222
           }
         });
       },
-      () => {},
+      () => {
+        alert("Tempo limite excedido!");
+      },
       {
-        timeout: 2000,
-        enableHighAccuracy: true,
-        maximumAge: 1000
+        timeout: 20000,
+        maximumAge: 5000,
+        enableHighAccuracy: true
       }
     );
   }
   render() {
     const { region } = this.state;
+    if (region != null) {
+      alert("OK");
+    }
     return (
       <View style={{ flex: 1 }}>
         <MapView style={{ flex: 1 }} region={region} showsUserLocation loadingEnabled />
