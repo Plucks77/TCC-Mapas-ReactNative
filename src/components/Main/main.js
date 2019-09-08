@@ -6,7 +6,7 @@ import Mapa from "../Mapa/mapa";
 
 export default function Main() {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Mapa />
     </View>
   );

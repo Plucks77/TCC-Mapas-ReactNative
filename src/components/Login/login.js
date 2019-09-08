@@ -11,14 +11,14 @@ export default function Login({ navigation }) {
   useEffect(() => {
     AsyncStorage.getItem("email").then(email => {
       if (email) {
-        //navigation.navigate("Mapa");
+        //navigation.navigate("Main");
       }
     });
   }, []);
 
   async function handleLogin() {
     await AsyncStorage.setItem("email", user);
-    navigation.navigate("Mapa");
+    navigation.navigate("Main");
   }
   return (
     <Container>
