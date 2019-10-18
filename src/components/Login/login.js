@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 // import { Container } from './styles';
 
-export default function Login({ navigation }) {
+export default function Login(props) {
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
 
   async function handleLogin() {
     await AsyncStorage.setItem("email", user);
-    navigation.navigate("Main");
+    props.navigation.navigate("Main");
   }
   return (
     <Container>

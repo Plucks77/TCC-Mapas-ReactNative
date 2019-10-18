@@ -77,7 +77,7 @@ export default class Map extends Component {
     return (
       <View style={{ flex: 1 }}>
         <MapView
-          style={{ flex: 1 }}
+          style={{ flex: 1, marginTop: -20 }}
           region={region}
           showsUserLocation
           loadingEnabled
