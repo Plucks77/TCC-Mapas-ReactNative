@@ -2,23 +2,44 @@ import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { Container, Inputs, Input, Botao } from "./style";
 import AsyncStorage from "@react-native-community/async-storage";
-
-// import { Container } from './styles';
+import api from "../../services/api";
+import axios from "axios";
 
 export default function Login(props) {
-  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   useEffect(() => {
     AsyncStorage.getItem("email").then(email => {
       if (email) {
-        //navigation.navigate("Main");
+        //props.navigation.navigate("Mapa");
       }
     });
   }, []);
 
   async function handleLogin() {
-    await AsyncStorage.setItem("email", user);
-    props.navigation.navigate("Main");
+    // alert("Email: " + email + "\n" + "Senha: " + senha);
+
+    // const response = await api.post("/login", {
+    //   email: email,
+    //   senha: senha
+    // });
+    // console.log(response.data);
+
+    axios
+      .post("http://192.168.29.69:8000/api/login", {
+        firstName: "Fred",
+        lastName: "Flintstone"
+      })
+      .then(function(response) {
+        console.log("Resposta: " + response);
+      })
+      .catch(function(error) {
+        console.log("Erro: " + error);
+      });
+
+    //await AsyncStorage.setItem("email", email);
+    //props.navigation.navigate("Mapa");
   }
   return (
     <Container>
@@ -27,8 +48,8 @@ export default function Login(props) {
           placeholder="Digite seu email"
           autoCapitalize="none"
           autoCorrect={false}
-          onChangeText={setUser}
-          value={user}
+          onChangeText={setEmail}
+          value={email}
           keyboardType="email-address"
         ></Input>
 
@@ -37,6 +58,8 @@ export default function Login(props) {
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
+          onChangeText={setSenha}
+          value={senha}
         ></Input>
 
         <Botao onPress={handleLogin}>

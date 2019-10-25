@@ -23,6 +23,7 @@ export const Input = styled.TextInput.attrs({
   border-color: #121212;
   color: #df4723;
   font-size: 16px;
+  padding-left: 5;
 `;
 
 export const Botao = styled.TouchableOpacity`

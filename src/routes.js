@@ -1,11 +1,13 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import Login from "./components/Login/login";
-import Main from "./components/Main/main";
+import Mapa from "./components/Mapa/mapa";
+import Perfil from "./components/Perfil/perfil";
 import { createDrawerNavigator } from "react-navigation-drawer";
 
 const MainDrawerNavigator = createDrawerNavigator(
   {
-    Mapa: Main
+    Mapa: Mapa,
+    Perfil: Perfil
   },
   {
     initialRouteName: "Mapa",
@@ -17,7 +19,7 @@ const MainDrawerNavigator = createDrawerNavigator(
 
 const LoginSwitchNavigator = createSwitchNavigator({
   Login,
-  Main: {
+  Mapa: {
     screen: MainDrawerNavigator
   }
 });
