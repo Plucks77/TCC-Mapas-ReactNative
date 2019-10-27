@@ -3,43 +3,31 @@ import { View, Text } from "react-native";
 import { Container, Inputs, Input, Botao } from "./style";
 import AsyncStorage from "@react-native-community/async-storage";
 import api from "../../services/api";
-import axios from "axios";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   useEffect(() => {
-    AsyncStorage.getItem("email").then(email => {
-      if (email) {
-        //props.navigation.navigate("Mapa");
+    AsyncStorage.getItem("user_id").then(user => {
+      if (user) {
+        props.navigation.navigate("Mapa");
       }
     });
   }, []);
 
   async function handleLogin() {
-    // alert("Email: " + email + "\n" + "Senha: " + senha);
-
-    // const response = await api.post("/login", {
-    //   email: email,
-    //   senha: senha
-    // });
-    // console.log(response.data);
-
-    axios
-      .post("http://192.168.29.69:8000/api/login", {
-        firstName: "Fred",
-        lastName: "Flintstone"
-      })
-      .then(function(response) {
-        console.log("Resposta: " + response);
-      })
-      .catch(function(error) {
-        console.log("Erro: " + error);
+    try {
+      const response = await api.post("/login", {
+        email: email,
+        senha: senha
       });
-
-    //await AsyncStorage.setItem("email", email);
-    //props.navigation.navigate("Mapa");
+      //console.log(response.data.user_id);
+      await AsyncStorage.setItem("user_id", response.data.user_id.toString());
+      props.navigation.navigate("Mapa");
+    } catch (erro) {
+      console.log("O seguinte erro ocorreu: " + erro);
+    }
   }
   return (
     <Container>
