@@ -36,6 +36,12 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+#package json
+package-lock.json
+
+#gradlew
+android/gradlew
+
 # BUCK
 buck-out/
 \.buckd/

@@ -10,7 +10,7 @@ const MainDrawerNavigator = createDrawerNavigator(
     Perfil: Perfil
   },
   {
-    initialRouteName: "Mapa",
+    initialRouteName: "Perfil",
     contentOptions: {
       activeTintColor: "#3273a8"
     }

@@ -22,7 +22,7 @@ export default function Login(props) {
         email: email,
         senha: senha
       });
-      //console.log(response.data.user_id);
+    //  console.log(response.data.user_id);
       await AsyncStorage.setItem("user_id", response.data.user_id.toString());
       props.navigation.navigate("Mapa");
     } catch (erro) {
