@@ -5,6 +5,8 @@ import Geolocation from "@react-native-community/geolocation";
 import { mapStyle } from "./style";
 import Menu from "../Menu/index";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Lottie from "lottie-react-native";
+import loading from "../../../assets/loading.json";
 
 export default function Mapa(props) {
   const [region, setRegion] = useState(null);
@@ -48,8 +50,15 @@ export default function Mapa(props) {
       </TouchableOpacity>
     </View>
   ) : (
-    <View>
-      <Text>Carregando...</Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#121212"
+      }}
+    >
+      <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
     </View>
   );
 }
