@@ -3,15 +3,22 @@ import { View, Text } from "react-native";
 import { Container, Inputs, Input, Botao } from "./style";
 import AsyncStorage from "@react-native-community/async-storage";
 import api from "../../services/api";
+import Lottie from "lottie-react-native";
+import loading from "../../../assets/loading.json";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem("user_id").then(user => {
       if (user) {
         props.navigation.navigate("Mapa");
+      }
+      else
+      {
+        setReady(true);
       }
     });
   }, []);
@@ -30,7 +37,7 @@ export default function Login(props) {
       console.log("O seguinte erro ocorreu: " + erro);
     }
   }
-  return (
+  return ready ? (
     <Container>
       <Inputs>
         <Input
@@ -56,5 +63,15 @@ export default function Login(props) {
         </Botao>
       </Inputs>
     </Container>
-  );
+  ) :     <View
+  style={{
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#121212"
+  }}
+> 
+    <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
+    </View>
+    ;
 }

@@ -3,6 +3,8 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import avatar from "../../../assets/avatar.png";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-community/async-storage";
+import Lottie from "lottie-react-native";
+import loading from "../../../assets/loading.json";
 
 import {
   Container,
@@ -63,6 +65,15 @@ export default function Perfil() {
       </ViewBotao>
     </Container>
   ) : (
-    <Text>Carregando...</Text>
+    <View
+  style={{
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#121212"
+  }}
+> 
+    <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
+    </View>
   );
 }
