@@ -4,6 +4,7 @@ import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 import { mapStyle } from "./style";
 import Menu from "../Menu/index";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Mapa(props) {
   const [region, setRegion] = useState(null);
@@ -40,6 +41,12 @@ export default function Mapa(props) {
         showsCompass={false}
       />
       <Menu props={props} />
+
+      <Icon
+        style={{ position: "absolute", alignSelf: "center", bottom: 30 }}
+        name="plus-circle"
+        size={50}
+      />
     </View>
   ) : (
     <View>

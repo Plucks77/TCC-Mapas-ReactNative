@@ -22,8 +22,9 @@ export default function Login(props) {
         email: email,
         senha: senha
       });
-    //  console.log(response.data.user_id);
+      //console.log(response.data.user_id);
       await AsyncStorage.setItem("user_id", response.data.user_id.toString());
+      await AsyncStorage.setItem("user_token", response.data.token);
       props.navigation.navigate("Mapa");
     } catch (erro) {
       console.log("O seguinte erro ocorreu: " + erro);
