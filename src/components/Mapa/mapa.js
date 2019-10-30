@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 import { mapStyle } from "./style";
@@ -41,12 +41,11 @@ export default function Mapa(props) {
         showsCompass={false}
       />
       <Menu props={props} />
-
-      <Icon
+      <TouchableOpacity
         style={{ position: "absolute", alignSelf: "center", bottom: 30 }}
-        name="plus-circle"
-        size={50}
-      />
+      >
+        <Icon name="plus-circle" size={50} />
+      </TouchableOpacity>
     </View>
   ) : (
     <View>
