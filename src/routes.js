@@ -19,11 +19,11 @@ const MainDrawerNavigator = createDrawerNavigator(
 );
 
 const LoginSwitchNavigator = createSwitchNavigator({
-  Cadastro,
   Login,
   Mapa: {
     screen: MainDrawerNavigator
-  }
+  },
+  Cadastro
 });
 
 export default createAppContainer(LoginSwitchNavigator);

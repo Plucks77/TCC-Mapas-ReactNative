@@ -13,7 +13,7 @@ export default function Login(props) {
 
   useEffect(() => {
     AsyncStorage.getItem("user_id").then(user => {
-      if (user) {
+      if (false) {
         props.navigation.navigate("Mapa");
       } else {
         setReady(true);
@@ -34,6 +34,10 @@ export default function Login(props) {
     } catch (erro) {
       console.log("O seguinte erro ocorreu: " + erro);
     }
+  }
+
+  function handleCriar() {
+    props.navigation.navigate("Cadastro");
   }
   return ready ? (
     <Container>
@@ -58,6 +62,10 @@ export default function Login(props) {
 
         <Botao onPress={handleLogin}>
           <Text>Logar</Text>
+        </Botao>
+
+        <Botao onPress={handleCriar}>
+          <Text>Criar conta</Text>
         </Botao>
       </Inputs>
     </Container>

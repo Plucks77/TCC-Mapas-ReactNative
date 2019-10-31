@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import api from "../../services/api";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TextInput,
-  TouchableOpacity
-} from "react-native";
-
+import { Text, View, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+import Icon from "react-native-vector-icons/FontAwesome";
 import {
   Container,
   TituloArea,
@@ -18,7 +13,7 @@ import {
   Botao
 } from "./style";
 
-export default function CadastroUsuario() {
+export default function CadastroUsuario(props) {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -36,14 +31,31 @@ export default function CadastroUsuario() {
         cpf,
         nick
       });
-      console.log(response.data);
+      // console.log(response.data);
+      await AsyncStorage.setItem("user_id", response.data.user_id.toString());
+      await AsyncStorage.setItem("user_token", response.data.token);
+      props.navigation.navigate("Mapa");
     } catch (erro) {
       console.log("O seguinte erro ocorreu: " + erro);
     }
   }
 
+  function handleBack() {
+    props.navigation.navigate("Login");
+  }
+
   return (
     <Container>
+      <TouchableOpacity
+        style={{
+          position: "absolute",
+          left: 10,
+          top: 20
+        }}
+        onPress={handleBack}
+      >
+        <Icon name="arrow-left" size={40} />
+      </TouchableOpacity>
       <TituloArea>
         <Titulo> Cadastrar </Titulo>
       </TituloArea>

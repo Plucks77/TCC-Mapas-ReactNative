@@ -11,29 +11,28 @@ export const Container = styled.SafeAreaView`
 export const TituloArea = styled.View`
   justify-content: center;
   align-items: center;
-  margin-top: 20;
-  background: lightgray;
+  /* margin-top: 10; */
 `;
 
 export const Titulo = styled.Text`
-  font-size: 26;
+  color: #df4723;
+  font-size: 35;
 `;
 
 export const InputsArea = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: 20;
-  background-color: lightblue;
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput.attrs({
+  placeholderTextColor: "#df4723"
+})`
   width: 300;
   height: 60;
-
-  /* border-color: black; */
-
   font-size: 15;
   color: #df4723;
+  margin-bottom: 1;
   margin-horizontal: 10;
   border-bottom-width: 1;
 `;
@@ -44,8 +43,12 @@ export const BotaoArea = styled.View`
   margin-top: 30;
 `;
 
-export const Boatao = styled.TouchableOpacity`
+export const Botao = styled.TouchableOpacity`
+  width: 200;
+  height: 30;
   justify-content: center;
   align-items: center;
-  margin-top: 30;
+  border-width: 1;
+  background: #df4723;
+  border-color: #df4723;
 `;
