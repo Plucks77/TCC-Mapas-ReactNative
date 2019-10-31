@@ -15,9 +15,7 @@ export default function Login(props) {
     AsyncStorage.getItem("user_id").then(user => {
       if (user) {
         props.navigation.navigate("Mapa");
-      }
-      else
-      {
+      } else {
         setReady(true);
       }
     });
@@ -63,15 +61,16 @@ export default function Login(props) {
         </Botao>
       </Inputs>
     </Container>
-  ) :     <View
-  style={{
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#121212"
-  }}
-> 
-    <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
+  ) : (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#121212"
+      }}
+    >
+      <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
     </View>
-    ;
+  );
 }
