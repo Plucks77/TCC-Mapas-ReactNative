@@ -8,7 +8,12 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 const MainDrawerNavigator = createDrawerNavigator(
   {
     Mapa: Mapa,
-    Perfil: Perfil
+    Perfil:{
+      screen: Perfil,
+      navigationOptions:{
+        drawerLockMode: 'locked-closed'
+      }
+    }
   },
   {
     initialRouteName: "Mapa",
