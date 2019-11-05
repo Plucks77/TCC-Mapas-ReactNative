@@ -36,6 +36,8 @@ export default function CadastroUsuario(props) {
       user.cpf != "" &&
       user.nick != ""
     ) {
+      cpf = user.cpf.replace(/\./g, "");
+      cpf = cpf.replace("-", "");
       try {
         setReady(false);
         const response = await api.post("/usuario/cadastrar", {
@@ -43,7 +45,7 @@ export default function CadastroUsuario(props) {
           email: user.email,
           senha: user.senha,
           data_nascimento: user.data_nascimento,
-          cpf: user.cpf,
+          cpf,
           nick: user.nick
         });
         // console.log(response.data);
