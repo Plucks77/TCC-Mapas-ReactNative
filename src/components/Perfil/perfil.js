@@ -5,6 +5,7 @@ import api from "../../services/api";
 import AsyncStorage from "@react-native-community/async-storage";
 import Lottie from "lottie-react-native";
 import loading from "../../../assets/loading.json";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import {
   Container,
@@ -17,7 +18,7 @@ import {
   ViewBotao
 } from "./style";
 
-export default function Perfil() {
+export default function Perfil(props) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -48,8 +49,22 @@ export default function Perfil() {
       });
   }
 
+  function handleBack() {
+    props.navigation.navigate("Mapa");
+  }
+
   return user ? (
     <Container>
+      <TouchableOpacity
+        style={{
+          position: "absolute",
+          left: 10,
+          top: 20
+        }}
+        onPress={handleBack}
+      >
+        <Icon name="arrow-left" size={40} />
+      </TouchableOpacity>
       <Principal>
         <Imagem source={avatar} />
         <Nome>{user.nome}</Nome>
@@ -60,20 +75,20 @@ export default function Perfil() {
       </Campos>
       <ViewBotao>
         <BotaoAlterar>
-          <Text>Alterar senha</Text>
+          <Text>Salvar</Text>
         </BotaoAlterar>
       </ViewBotao>
     </Container>
   ) : (
     <View
-  style={{
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#121212"
-  }}
-> 
-    <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#121212"
+      }}
+    >
+      <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
     </View>
   );
 }
