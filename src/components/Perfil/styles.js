@@ -17,7 +17,6 @@ export const Principal = styled.View`
   margin-horizontal: 30;
   margin-top: 80;
   margin-bottom: 5;
-  /* background: yellowgreen; */
   text-align: center;
   display: flex;
 `;
@@ -47,9 +46,25 @@ export const ViewBotao = styled.View`
 `;
 
 export const BotaoAlterar = styled.TouchableOpacity`
-  width: 100;
+  width: 300;
   height: 30;
+  border-radius: 5;
+  font-weight: 900;
   background: #df4723;
   justify-content: center;
   align-items: center;
+  align-self: center;
+`;
+
+export const Seta = styled.TouchableOpacity`
+  position: absolute;
+  left: 10;
+  top: 20;
+`;
+
+export const ViewLottie = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
 `;

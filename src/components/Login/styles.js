@@ -8,11 +8,6 @@ export const Container = styled.SafeAreaView`
   align-items: center;
 `;
 
-export const Inputs = styled.View`
-  /* background: green;
-    height: 400px; */
-`;
-
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: "#df4723"
 })`
@@ -35,4 +30,21 @@ export const Botao = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   font-size: 16px;
+`;
+
+export const BotaoCriar = styled.TouchableOpacity`
+  align-self: center;
+  margin-top: 15;
+`;
+
+export const Texto = styled.Text`
+  font-weight: bold;
+  color: #df4723;
+`;
+
+export const ViewLottie = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
 `;

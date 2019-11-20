@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../../services/api";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { TextInputMask } from "react-native-masked-text";
@@ -13,8 +13,10 @@ import {
   InputsArea,
   Input,
   BotaoArea,
-  Botao
-} from "./style";
+  Botao,
+  Seta,
+  ViewLottie
+} from "./styles";
 
 export default function CadastroUsuario(props) {
   const [user, setUser] = useState({
@@ -36,8 +38,10 @@ export default function CadastroUsuario(props) {
       user.cpf != "" &&
       user.nick != ""
     ) {
-      cpf = user.cpf.replace(/\./g, "");
-      cpf = cpf.replace("-", "");
+      const cpf = user.cpf
+        .split("")
+        .filter(Number)
+        .join("");
       try {
         setReady(false);
         const response = await api.post("/usuario/cadastrar", {
@@ -48,7 +52,6 @@ export default function CadastroUsuario(props) {
           cpf,
           nick: user.nick
         });
-        // console.log(response.data);
         await AsyncStorage.setItem("user_id", response.data.user_id.toString());
         await AsyncStorage.setItem("user_token", response.data.token);
         props.navigation.navigate("Mapa");
@@ -67,19 +70,14 @@ export default function CadastroUsuario(props) {
 
   return ready ? (
     <Container>
-      <TouchableOpacity
-        style={{
-          position: "absolute",
-          left: 10,
-          top: 20
-        }}
-        onPress={handleBack}
-      >
-        <Icon name="arrow-left" size={40} />
-      </TouchableOpacity>
+      <Seta onPress={handleBack}>
+        <Icon name="arrow-left" size={40} style={{ color: "#df4723" }} />
+      </Seta>
+
       <TituloArea>
         <Titulo> Cadastrar </Titulo>
       </TituloArea>
+
       <InputsArea>
         <Input
           onChangeText={e => setUser({ ...user, nome: e })}
@@ -103,15 +101,7 @@ export default function CadastroUsuario(props) {
           value={user.senha}
         />
         <TextInputMask
-          style={{
-            width: 300,
-            height: 60,
-            fontSize: 15,
-            color: "#df4723",
-            marginBottom: 1,
-            marginHorizontal: 10,
-            borderBottomWidth: 1
-          }}
+          style={styles.Masked}
           placeholder="Data de nascimento"
           placeholderTextColor="#df4723"
           type={"datetime"}
@@ -119,23 +109,17 @@ export default function CadastroUsuario(props) {
             format: "DD/MM/YYYY"
           }}
           value={user.data_nascimento}
+          maxLength={10}
           onChangeText={e => setUser({ ...user, data_nascimento: e })}
         />
 
         <TextInputMask
-          style={{
-            width: 300,
-            height: 60,
-            fontSize: 15,
-            color: "#df4723",
-            marginBottom: 1,
-            marginHorizontal: 10,
-            borderBottomWidth: 1
-          }}
+          style={styles.Masked}
           placeholder="Cpf"
           placeholderTextColor="#df4723"
           type={"cpf"}
           value={user.cpf}
+          maxLength={14}
           onChangeText={e => setUser({ ...user, cpf: e })}
         />
 
@@ -153,15 +137,20 @@ export default function CadastroUsuario(props) {
       </BotaoArea>
     </Container>
   ) : (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#121212"
-      }}
-    >
+    <ViewLottie>
       <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
-    </View>
+    </ViewLottie>
   );
 }
+
+const styles = StyleSheet.create({
+  Masked: {
+    width: 300,
+    height: 60,
+    fontSize: 15,
+    color: "#df4723",
+    marginBottom: 1,
+    marginHorizontal: 10,
+    borderBottomWidth: 1
+  }
+});

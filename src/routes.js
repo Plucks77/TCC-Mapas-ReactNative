@@ -1,17 +1,17 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
-import Login from "./components/Login/login";
-import Mapa from "./components/Mapa/mapa";
-import Perfil from "./components/Perfil/perfil";
-import Cadastro from "./components/CadastroUsuario/cadastro";
+import Login from "./components/Login/index";
+import Mapa from "./components/Mapa/index";
+import Perfil from "./components/Perfil/index";
+import Cadastro from "./components/CadastroUsuario/index";
 import { createDrawerNavigator } from "react-navigation-drawer";
 
 const MainDrawerNavigator = createDrawerNavigator(
   {
     Mapa: Mapa,
-    Perfil:{
+    Perfil: {
       screen: Perfil,
-      navigationOptions:{
-        drawerLockMode: 'locked-closed'
+      navigationOptions: {
+        drawerLockMode: "locked-closed"
       }
     }
   },

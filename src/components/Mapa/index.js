@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
-import { mapStyle } from "./style";
+import { mapStyle, AdicionarEvento, Container, ViewLottie } from "./styles";
 import Menu from "../Menu/index";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Lottie from "lottie-react-native";
@@ -33,9 +33,9 @@ export default function Mapa(props) {
   }, []);
 
   return region != null ? (
-    <View style={{ flex: 1 }}>
+    <Container>
       <MapView
-        style={{ flex: 1, marginTop: -20 }}
+        style={styles.mapa}
         region={region}
         customMapStyle={mapStyle}
         showsUserLocation
@@ -43,22 +43,21 @@ export default function Mapa(props) {
         showsCompass={false}
       />
       <Menu props={props} />
-      <TouchableOpacity
-        style={{ position: "absolute", alignSelf: "center", bottom: 30 }}
-      >
+      <AdicionarEvento>
         <Icon name="plus-circle" size={50} />
-      </TouchableOpacity>
-    </View>
+      </AdicionarEvento>
+    </Container>
   ) : (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#121212"
-      }}
-    >
+    <ViewLottie>
       <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
-    </View>
+    </ViewLottie>
   );
 }
+
+const styles = StyleSheet.create({
+  mapa: {
+    flex: 1,
+    marginTop: -50,
+    marginBottom: -30
+  }
+});

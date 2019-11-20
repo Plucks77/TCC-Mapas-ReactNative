@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import avatar from "../../../assets/avatar.png";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -15,8 +15,10 @@ import {
   Texto,
   Campos,
   BotaoAlterar,
-  ViewBotao
-} from "./style";
+  ViewBotao,
+  Seta,
+  ViewLottie
+} from "./styles";
 
 export default function Perfil(props) {
   const [user, setUser] = useState(null);
@@ -55,24 +57,20 @@ export default function Perfil(props) {
 
   return user ? (
     <Container>
-      <TouchableOpacity
-        style={{
-          position: "absolute",
-          left: 10,
-          top: 20
-        }}
-        onPress={handleBack}
-      >
-        <Icon name="arrow-left" size={40} />
-      </TouchableOpacity>
+      <Seta onPress={handleBack}>
+        <Icon name="arrow-left" size={40} style={{ color: "#df4723" }} />
+      </Seta>
+
       <Principal>
         <Imagem source={avatar} />
         <Nome>{user.nome}</Nome>
       </Principal>
+
       <Campos>
         <Texto>{user.email}</Texto>
         <Texto>{user.nick}</Texto>
       </Campos>
+
       <ViewBotao>
         <BotaoAlterar>
           <Text>Salvar</Text>
@@ -80,15 +78,8 @@ export default function Perfil(props) {
       </ViewBotao>
     </Container>
   ) : (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#121212"
-      }}
-    >
+    <ViewLottie>
       <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
-    </View>
+    </ViewLottie>
   );
 }

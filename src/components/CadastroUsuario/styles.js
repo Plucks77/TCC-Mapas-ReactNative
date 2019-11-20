@@ -11,7 +11,6 @@ export const Container = styled.SafeAreaView`
 export const TituloArea = styled.View`
   justify-content: center;
   align-items: center;
-  /* margin-top: 10; */
 `;
 
 export const Titulo = styled.Text`
@@ -51,4 +50,20 @@ export const Botao = styled.TouchableOpacity`
   border-width: 1;
   background: #df4723;
   border-color: #df4723;
+`;
+
+export const Seta = styled.TouchableOpacity`
+  /* position: absolute; */
+  margin-left: -350;
+  margin-top: -100;
+  margin-bottom: 30;
+  left: 10;
+  top: 20;
+`;
+
+export const ViewLottie = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
 `;

@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import { Container, Inputs, Input, Botao } from "./style";
+import {
+  Container,
+  Input,
+  Botao,
+  BotaoCriar,
+  Texto,
+  ViewLottie
+} from "./styles";
 import AsyncStorage from "@react-native-community/async-storage";
 import api from "../../services/api";
 import Lottie from "lottie-react-native";
@@ -27,7 +34,6 @@ export default function Login(props) {
         email: email,
         senha: senha
       });
-      //console.log(response.data.user_id);
       await AsyncStorage.setItem("user_id", response.data.user_id.toString());
       await AsyncStorage.setItem("user_token", response.data.token);
       props.navigation.navigate("Mapa");
@@ -41,44 +47,35 @@ export default function Login(props) {
   }
   return ready ? (
     <Container>
-      <Inputs>
-        <Input
-          placeholder="Digite seu email"
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={setEmail}
-          value={email}
-          keyboardType="email-address"
-        ></Input>
+      <Input
+        placeholder="Digite seu email"
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={setEmail}
+        value={email}
+        keyboardType="email-address"
+      ></Input>
 
-        <Input
-          placeholder="Digite sua senha"
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={setSenha}
-          value={senha}
-        ></Input>
+      <Input
+        placeholder="Digite sua senha"
+        secureTextEntry={true}
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={setSenha}
+        value={senha}
+      ></Input>
 
-        <Botao onPress={handleLogin}>
-          <Text>Logar</Text>
-        </Botao>
+      <Botao onPress={handleLogin}>
+        <Text>Logar</Text>
+      </Botao>
 
-        <Botao onPress={handleCriar}>
-          <Text>Criar conta</Text>
-        </Botao>
-      </Inputs>
+      <BotaoCriar onPress={handleCriar}>
+        <Texto>Criar conta</Texto>
+      </BotaoCriar>
     </Container>
   ) : (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#121212"
-      }}
-    >
+    <ViewLottie>
       <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
-    </View>
+    </ViewLottie>
   );
 }
