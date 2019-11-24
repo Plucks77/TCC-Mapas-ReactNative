@@ -15,7 +15,8 @@ import {
   BotaoArea,
   Botao,
   Seta,
-  ViewLottie
+  ViewLottie,
+  Cadastrar
 } from "./styles";
 
 export default function CadastroUsuario(props) {
@@ -70,12 +71,12 @@ export default function CadastroUsuario(props) {
 
   return ready ? (
     <Container>
-      <Seta onPress={handleBack}>
-        <Icon name="arrow-left" size={40} style={{ color: "#df4723" }} />
-      </Seta>
-
       <TituloArea>
-        <Titulo> Cadastrar </Titulo>
+        <Seta onPress={handleBack}>
+          <Icon name="arrow-left" size={40} style={{ color: "#df4723" }} />
+        </Seta>
+        <Titulo> Cadastro </Titulo>
+        <Text style={{ flex: 1 }} />
       </TituloArea>
 
       <InputsArea>
@@ -132,7 +133,7 @@ export default function CadastroUsuario(props) {
 
       <BotaoArea>
         <Botao onPress={handleCadastro}>
-          <Text>Cadastrar</Text>
+          <Cadastrar>Cadastrar</Cadastrar>
         </Botao>
       </BotaoArea>
     </Container>

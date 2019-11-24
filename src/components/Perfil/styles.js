@@ -6,26 +6,36 @@ export const Container = styled.SafeAreaView`
   /* background: #f0f5f5; */
 `;
 
-export const Imagem = styled.Image`
-  width: 100;
-  height: 100;
-  border-radius: 40;
-`;
-
 export const Principal = styled.View`
   flex-direction: row;
-  margin-horizontal: 30;
-  margin-top: 80;
+  /* margin-horizontal: 30; */
+  margin-top: 30;
   margin-bottom: 5;
-  text-align: center;
   display: flex;
+  align-items: center;
+`;
+
+export const Imagem = styled.Image`
+  max-width: 100;
+  height: 100;
+  border-radius: 40;
+  flex: 2;
+  /* margin-right: 35%; */
+`;
+
+export const Seta = styled.TouchableOpacity`
+  /* position: absolute;
+  left: 10;
+  top: 20; */
+  flex: 1;
+  margin-left: 15;
 `;
 
 export const Nome = styled.Text`
-  align-self: center;
-  font-size: 25;
+  font-size: 35;
   font-weight: bold;
-  margin-left: 50;
+  align-self: center;
+  margin-top: 10;
   color: #df4723;
 `;
 
@@ -34,7 +44,7 @@ export const Campos = styled.View`
 `;
 
 export const Texto = styled.TextInput`
-  font-size: 15;
+  font-size: 16;
   color: #df4723;
   margin-horizontal: 10;
   border-bottom-width: 1;
@@ -56,15 +66,13 @@ export const BotaoAlterar = styled.TouchableOpacity`
   align-self: center;
 `;
 
-export const Seta = styled.TouchableOpacity`
-  position: absolute;
-  left: 10;
-  top: 20;
-`;
-
 export const ViewLottie = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
   background-color: #121212;
+`;
+
+export const Salvar = styled.Text`
+  font-size: 16;
 `;

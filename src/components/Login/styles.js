@@ -40,6 +40,7 @@ export const BotaoCriar = styled.TouchableOpacity`
 export const Texto = styled.Text`
   font-weight: bold;
   color: #df4723;
+  font-size: 16;
 `;
 
 export const ViewLottie = styled.View`
@@ -47,4 +48,8 @@ export const ViewLottie = styled.View`
   justify-content: center;
   align-items: center;
   background-color: #121212;
+`;
+
+export const Logar = styled.Text`
+  font-size: 16;
 `;

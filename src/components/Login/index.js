@@ -6,7 +6,8 @@ import {
   Botao,
   BotaoCriar,
   Texto,
-  ViewLottie
+  ViewLottie,
+  Logar
 } from "./styles";
 import AsyncStorage from "@react-native-community/async-storage";
 import api from "../../services/api";
@@ -66,7 +67,7 @@ export default function Login(props) {
       ></Input>
 
       <Botao onPress={handleLogin}>
-        <Text>Logar</Text>
+        <Logar>Logar</Logar>
       </Botao>
 
       <BotaoCriar onPress={handleCriar}>

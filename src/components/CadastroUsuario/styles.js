@@ -11,11 +11,26 @@ export const Container = styled.SafeAreaView`
 export const TituloArea = styled.View`
   justify-content: center;
   align-items: center;
+  flex-direction: row;
 `;
 
 export const Titulo = styled.Text`
   color: #df4723;
   font-size: 35;
+  flex: 2;
+  /* margin-left: -35; */
+  font-weight: bold;
+`;
+
+export const Seta = styled.TouchableOpacity`
+  /* position: absolute; */
+  /* margin-left: -350;
+  margin-top: -100;
+  margin-bottom: 30;
+  left: 10;
+  top: 20; */
+  flex: 1;
+  margin-left: 15;
 `;
 
 export const InputsArea = styled.View`
@@ -51,18 +66,13 @@ export const Botao = styled.TouchableOpacity`
   border-color: #df4723;
 `;
 
-export const Seta = styled.TouchableOpacity`
-  /* position: absolute; */
-  margin-left: -350;
-  margin-top: -100;
-  margin-bottom: 30;
-  left: 10;
-  top: 20;
-`;
-
 export const ViewLottie = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
   background-color: #121212;
+`;
+
+export const Cadastrar = styled.Text`
+  font-size: 16;
 `;

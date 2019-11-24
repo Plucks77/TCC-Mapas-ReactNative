@@ -17,7 +17,8 @@ import {
   BotaoAlterar,
   ViewBotao,
   Seta,
-  ViewLottie
+  ViewLottie,
+  Salvar
 } from "./styles";
 
 export default function Perfil(props) {
@@ -57,14 +58,14 @@ export default function Perfil(props) {
 
   return user ? (
     <Container>
-      <Seta onPress={handleBack}>
-        <Icon name="arrow-left" size={40} style={{ color: "#df4723" }} />
-      </Seta>
-
       <Principal>
+        <Seta onPress={handleBack}>
+          <Icon name="arrow-left" size={40} style={{ color: "#df4723" }} />
+        </Seta>
         <Imagem source={avatar} />
-        <Nome>{user.nome}</Nome>
+        <Icon style={{ flex: 1 }} />
       </Principal>
+      <Nome>{user.nome}</Nome>
 
       <Campos>
         <Texto>{user.email}</Texto>
@@ -73,7 +74,7 @@ export default function Perfil(props) {
 
       <ViewBotao>
         <BotaoAlterar>
-          <Text>Salvar</Text>
+          <Salvar>Salvar</Salvar>
         </BotaoAlterar>
       </ViewBotao>
     </Container>
