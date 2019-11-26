@@ -35,8 +35,10 @@ export default function Login(props) {
         email: email,
         senha: senha
       });
-      await AsyncStorage.setItem("user_id", response.data.user_id.toString());
-      await AsyncStorage.setItem("user_token", response.data.token);
+      // await AsyncStorage.setItem("user_id", response.data.user_id.toString());
+      // await AsyncStorage.setItem("user_token", response.data.token);
+      await AsyncStorage.setItem("user_id", response.data.user.id.toString());
+      await AsyncStorage.setItem("user_token", response.data.token.token);
       props.navigation.navigate("Mapa");
     } catch (erro) {
       console.log("O seguinte erro ocorreu: " + erro);

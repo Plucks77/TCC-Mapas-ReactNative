@@ -43,18 +43,25 @@ export default function CadastroUsuario(props) {
         .split("")
         .filter(Number)
         .join("");
+      var data_nascimento = user.data_nascimento.split("/");
+      data_nascimento =
+        data_nascimento[2] +
+        "/" +
+        data_nascimento[1] +
+        "/" +
+        data_nascimento[0];
       try {
         setReady(false);
-        const response = await api.post("/usuario/cadastrar", {
+        const response = await api.post("/user/create", {
           nome: user.nome,
           email: user.email,
           senha: user.senha,
-          data_nascimento: user.data_nascimento,
+          data_nascimento,
           cpf,
           nick: user.nick
         });
-        await AsyncStorage.setItem("user_id", response.data.user_id.toString());
-        await AsyncStorage.setItem("user_token", response.data.token);
+        await AsyncStorage.setItem("user_id", response.data.user.id.toString());
+        await AsyncStorage.setItem("user_token", response.data.token.token);
         props.navigation.navigate("Mapa");
       } catch (erro) {
         setReady(true);

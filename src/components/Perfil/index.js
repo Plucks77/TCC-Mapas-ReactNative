@@ -43,7 +43,7 @@ export default function Perfil(props) {
     };
 
     const response = api
-      .post(`/usuario/${id}`, bodyParameters, config)
+      .post(`/user/show/${id}`, bodyParameters, config)
       .then(r => {
         setUser(r.data);
       })
