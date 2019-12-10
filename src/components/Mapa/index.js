@@ -7,9 +7,13 @@ import Menu from "../Menu/index";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Lottie from "lottie-react-native";
 import loading from "../../../assets/loading.json";
+import { TextInput } from "react-native-gesture-handler";
+import { Marker } from "react-native-maps";
 
 export default function Mapa(props) {
   const [region, setRegion] = useState(null);
+  const [editando, setEditando] = useState(false);
+  const [local, setLocal] = useState(null);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -32,6 +36,17 @@ export default function Mapa(props) {
     );
   }, []);
 
+  function handleCriarEvento() {
+    props.navigation.navigate("CadastroEvento", {
+      latitude: region.latitude,
+      longitude: region.longitude
+    });
+  }
+
+  function handleSelecionar() {
+    setEditando(true);
+  }
+
   return region != null ? (
     <Container>
       <MapView
@@ -41,10 +56,33 @@ export default function Mapa(props) {
         showsUserLocation
         loadingEnabled
         showsCompass={false}
-      />
-      <Menu props={props} />
-      <AdicionarEvento>
-        <Icon name="plus-circle" size={50} />
+      >
+        {editando ? (
+          <Marker
+            coordinate={region}
+            title="Marcador"
+            description="Apenas um marcador de teste"
+          />
+        ) : null}
+      </MapView>
+      {editando == false ? (
+        <Menu props={props} />
+      ) : (
+        <TextInput
+          placeholder="Onde?"
+          style={{
+            backgroundColor: "red",
+            position: "absolute",
+            top: 10,
+            width: 300,
+            alignSelf: "center"
+          }}
+        />
+      )}
+      <AdicionarEvento
+        onPress={!editando ? handleSelecionar : handleCriarEvento}
+      >
+        <Icon name={!editando ? "plus-circle" : "check-circle"} size={50} />
       </AdicionarEvento>
     </Container>
   ) : (

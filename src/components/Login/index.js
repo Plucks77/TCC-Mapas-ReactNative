@@ -21,7 +21,7 @@ export default function Login(props) {
 
   useEffect(() => {
     AsyncStorage.getItem("user_id").then(user => {
-      if (false) {
+      if (user) {
         props.navigation.navigate("Mapa");
       } else {
         setReady(true);

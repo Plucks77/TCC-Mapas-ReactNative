@@ -3,6 +3,7 @@ import Login from "./components/Login/index";
 import Mapa from "./components/Mapa/index";
 import Perfil from "./components/Perfil/index";
 import Cadastro from "./components/CadastroUsuario/index";
+import CadastroEvento from "./components/CadastrarEvento/index";
 import { createDrawerNavigator } from "react-navigation-drawer";
 
 const MainDrawerNavigator = createDrawerNavigator(
@@ -28,7 +29,8 @@ const LoginSwitchNavigator = createSwitchNavigator({
   Mapa: {
     screen: MainDrawerNavigator
   },
-  Cadastro
+  Cadastro,
+  CadastroEvento
 });
 
 export default createAppContainer(LoginSwitchNavigator);
