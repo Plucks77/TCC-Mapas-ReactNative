@@ -9,11 +9,12 @@ import Lottie from "lottie-react-native";
 import loading from "../../../assets/loading.json";
 import { TextInput } from "react-native-gesture-handler";
 import { Marker } from "react-native-maps";
+import api from "../../services/api";
 
 export default function Mapa(props) {
   const [region, setRegion] = useState(null);
   const [editando, setEditando] = useState(false);
-  const [local, setLocal] = useState(null);
+  const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -31,10 +32,24 @@ export default function Mapa(props) {
       {
         timeout: 20000,
         maximumAge: 0,
-        enableHighAccuracy: false
+        enableHighAccuracy: true
       }
     );
+    const response = api
+      .post("/evento/show")
+      .then(r => {
+        //console.log(r.data.eventos);
+        setEventos(r.data.eventos);
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
   }, []);
+
+  function handleRegionChange(r) {
+    console.log(r);
+    setRegion(r);
+  }
 
   function handleCriarEvento() {
     props.navigation.navigate("CadastroEvento", {
@@ -56,15 +71,32 @@ export default function Mapa(props) {
         showsUserLocation
         loadingEnabled
         showsCompass={false}
+        rotateEnabled={false}
+        onRegionChangeComplete={r => handleRegionChange(r)}
       >
-        {editando ? (
+        {eventos.map(e => (
           <Marker
-            coordinate={region}
-            title="Marcador"
-            description="Apenas um marcador de teste"
+            coordinate={{
+              latitude: parseFloat(e.latitude),
+              longitude: parseFloat(e.longitude)
+            }}
+            title={e.nome}
+            description={e.descricao}
           />
-        ) : null}
+        ))}
       </MapView>
+      {editando && (
+        <Icon
+          name={"map-marker"}
+          size={50}
+          style={{
+            position: "absolute",
+            alignSelf: "center",
+            top: 260
+          }}
+        />
+      )}
+
       {editando == false ? (
         <Menu props={props} />
       ) : (
