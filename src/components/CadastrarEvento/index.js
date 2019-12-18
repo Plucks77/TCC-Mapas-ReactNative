@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, Picker } from "react-native";
+import React, { useState } from "react";
+import { Text, Picker } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-community/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import {
   Container,
@@ -12,57 +13,66 @@ import {
   Campos,
   Proximo,
   Input,
-  Seletor
+  Seletor,
+  CampoData,
+  Texto,
+  Botao
 } from "./styles";
 
 export default function CadastrarEvento(props) {
   const [evento, setEvento] = useState({
     nome: "",
     descricao: "",
-    data: "",
     quantidade: "",
     privado: 0,
     valor: ""
   });
+
+  const [mostradores, setMostradores] = useState({ data: false, hora: false });
+  const [data_hora, setData_hora] = useState({ data: null, hora: null });
+
+  function handleTrocaData(r) {
+    const data_formatada =
+      r.getDate() + "-" + (r.getMonth() + 1) + "-" + r.getFullYear();
+    setMostradores({ ...mostradores, data: false });
+    setData_hora({ ...data_hora, data: data_formatada });
+  }
+
+  function handleTrocaHora(r) {
+    const temp = r.getHours() + ":" + r.getMinutes();
+    var h = temp.split(":");
+    if (h[0] == "0") {
+      h[0] = "00";
+    }
+    if (h[1] == "0") {
+      h[1] = "00";
+    }
+    const formatado = h.join(":");
+
+    setMostradores({ ...mostradores, hora: false });
+    setData_hora({ ...data_hora, hora: formatado });
+  }
 
   function handleBack() {
     props.navigation.navigate("Mapa");
   }
 
   function formataData() {
-    format = "00/00/0000 00:00";
-    if (evento.data.length == 2) {
-      d = evento.data + "/";
-      setEvento({ ...evento, data: d });
-    }
-    if (evento.data.length == 5) {
-      d = evento.data + "/";
-      setEvento({ ...evento, data: d });
-    }
-    if (evento.data.length == 10) {
-      d = evento.data + " ";
-      setEvento({ ...evento, data: d });
-    }
-    if (evento.data.length == 13) {
-      d = evento.data + ":";
-      setEvento({ ...evento, data: d });
-    }
+    const data_certo = data_hora.data + " " + data_hora.hora;
+    return data_certo;
   }
 
-  useEffect(() => {
-    formataData();
-  }, [evento.data]);
-
   async function handleProximo() {
-    const { nome, descricao, data, quantidade, privado, valor } = evento;
-    if (nome != "" && descricao != "" && data != "" && quantidade != "") {
+    const { nome, descricao, quantidade, privado, valor } = evento;
+    if (nome != "" && descricao != "" && quantidade != "") {
       latitude = props.navigation.getParam("latitude");
       longitude = props.navigation.getParam("longitude");
 
-      var d = evento.data.split("/");
-      var h = d[2].split(" ");
-
-      d = h[0] + "/" + d[1] + "/" + d[0] + " " + h[1];
+      const temp = formataData();
+      d = temp.split("-");
+      h = d[2].split(" ");
+      d[2] = h[0];
+      c = d[2] + "-" + d[1] + "-" + d[0] + " " + h[1];
 
       const token = await AsyncStorage.getItem("user_token");
       const id = await AsyncStorage.getItem("user_id");
@@ -77,7 +87,7 @@ export default function CadastrarEvento(props) {
         id_criador: id,
         nome,
         descricao,
-        data: d,
+        data: c,
         valor,
         privado,
         max_participantes: quantidade,
@@ -118,12 +128,39 @@ export default function CadastrarEvento(props) {
           value={evento.descricao}
           onChangeText={e => setEvento({ ...evento, descricao: e })}
         />
-        <Input
-          placeholder="00/00/0000 00:00"
-          maxLength={16}
-          value={evento.data}
-          onChangeText={e => setEvento({ ...evento, data: e })}
-        />
+        <CampoData>
+          <Texto>Data</Texto>
+          <Botao onPress={() => setMostradores({ ...mostradores, data: true })}>
+            <Texto>
+              {!data_hora.data ? "Selecione a data" : data_hora.data}
+            </Texto>
+          </Botao>
+          {mostradores.data && (
+            <DateTimePicker
+              value={new Date()}
+              mode="date"
+              display="spinner"
+              onChange={(e, d) => handleTrocaData(d)}
+            />
+          )}
+        </CampoData>
+        <CampoData>
+          <Texto>Hora</Texto>
+          <Botao onPress={() => setMostradores({ ...mostradores, hora: true })}>
+            <Texto>
+              {!data_hora.hora ? "Selecione a hora" : data_hora.hora}
+            </Texto>
+          </Botao>
+          {mostradores.hora && (
+            <DateTimePicker
+              value={new Date()}
+              mode="time"
+              display="spinner"
+              onChange={(e, d) => handleTrocaHora(d)}
+            />
+          )}
+        </CampoData>
+
         <Input
           placeholder="Quantidade de participantes"
           keyboardType="number-pad"

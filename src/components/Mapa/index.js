@@ -47,7 +47,7 @@ export default function Mapa(props) {
   }, []);
 
   function handleRegionChange(r) {
-    console.log(r);
+    //console.log(r);
     setRegion(r);
   }
 
@@ -76,6 +76,7 @@ export default function Mapa(props) {
       >
         {eventos.map(e => (
           <Marker
+            key={e.id}
             coordinate={{
               latitude: parseFloat(e.latitude),
               longitude: parseFloat(e.longitude)

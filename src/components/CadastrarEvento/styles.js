@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.ScrollView`
   height: 100%;
   background: #1f1b24;
 `;
@@ -58,4 +58,27 @@ export const Proximo = styled.TouchableOpacity`
   background: #df4723;
   border-color: #df4723;
   align-self: center;
+`;
+
+export const CampoData = styled.View`
+  flex-direction: row;
+  align-items: center;
+  width: 300;
+  height: 60;
+  margin-bottom: 1;
+  border-bottom-width: 1;
+`;
+
+export const Texto = styled.Text`
+  font-size: 15;
+  color: #df4723;
+`;
+
+export const Botao = styled.TouchableOpacity`
+  /* background: #df4723; */
+  color: white;
+  width: 180;
+  height: 30;
+  align-items: center;
+  justify-content: center;
 `;
