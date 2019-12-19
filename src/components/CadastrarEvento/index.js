@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, Picker } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import api from "../../services/api";
@@ -30,6 +30,8 @@ export default function CadastrarEvento(props) {
 
   const [mostradores, setMostradores] = useState({ data: false, hora: false });
   const [data_hora, setData_hora] = useState({ data: null, hora: null });
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setlongitude] = useState(null);
 
   function handleTrocaData(r) {
     const data_formatada =
@@ -62,17 +64,31 @@ export default function CadastrarEvento(props) {
     return data_certo;
   }
 
+  useEffect(() => {
+    x = props.navigation.getParam("latitude");
+    y = props.navigation.getParam("longitude");
+
+    setLatitude(x);
+    setlongitude(y);
+  }, []);
+
   async function handleProximo() {
     const { nome, descricao, quantidade, privado, valor } = evento;
-    if (nome != "" && descricao != "" && quantidade != "") {
-      latitude = props.navigation.getParam("latitude");
-      longitude = props.navigation.getParam("longitude");
 
+    if (
+      nome != "" &&
+      descricao != "" &&
+      quantidade != "" &&
+      data_hora.data != null &&
+      data_hora.hora != null &&
+      latitude != null &&
+      longitude != null
+    ) {
       const temp = formataData();
       d = temp.split("-");
       h = d[2].split(" ");
       d[2] = h[0];
-      c = d[2] + "-" + d[1] + "-" + d[0] + " " + h[1];
+      const data = d[2] + "-" + d[1] + "-" + d[0] + " " + h[1];
 
       const token = await AsyncStorage.getItem("user_token");
       const id = await AsyncStorage.getItem("user_id");
@@ -87,7 +103,7 @@ export default function CadastrarEvento(props) {
         id_criador: id,
         nome,
         descricao,
-        data: c,
+        data,
         valor,
         privado,
         max_participantes: quantidade,
