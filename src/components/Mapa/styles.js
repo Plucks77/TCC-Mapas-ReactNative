@@ -91,6 +91,19 @@ export const AdicionarEvento = styled.TouchableOpacity`
   bottom: 30;
 `;
 
+export const Busca = styled.TextInput.attrs({
+  placeholderTextColor: "#8F99A6"
+})`
+  border-radius:5;
+  background: #2E3C4E;
+  position: absolute;
+  top: 10;
+  width: 300;
+  align-self: center;
+  color:#8F99A6;
+  padding-left:10;
+`;
+
 export const ViewLottie = styled.View`
   flex: 1;
   justify-content: center;

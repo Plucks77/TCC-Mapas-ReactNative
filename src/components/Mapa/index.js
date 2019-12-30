@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
-import { mapStyle, AdicionarEvento, Container, ViewLottie } from "./styles";
+import { mapStyle, AdicionarEvento, Container, ViewLottie, Busca } from "./styles";
 import Menu from "../Menu/index";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Lottie from "lottie-react-native";
 import loading from "../../../assets/loading.json";
-import { TextInput } from "react-native-gesture-handler";
 import { Marker } from "react-native-maps";
 import api from "../../services/api";
 
@@ -15,7 +14,7 @@ export default function Mapa(props) {
   const [region, setRegion] = useState(null);
   const [editando, setEditando] = useState(false);
   const [eventos, setEventos] = useState([]);
-
+  const screenHeight = Math.round(Dimensions.get('window').height);
   useEffect(() => {
     Geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -83,17 +82,23 @@ export default function Mapa(props) {
             }}
             title={e.nome}
             description={e.descricao}
-          />
+          >
+            <Icon
+              name={"map-marker"}
+              size={30}
+            />
+          </Marker>
+
         ))}
       </MapView>
       {editando && (
         <Icon
-          name={"map-marker"}
+          name={"pin"}
           size={50}
           style={{
             position: "absolute",
             alignSelf: "center",
-            top: 260
+            top: screenHeight / 2.5
           }}
         />
       )}
@@ -101,17 +106,10 @@ export default function Mapa(props) {
       {editando == false ? (
         <Menu props={props} />
       ) : (
-        <TextInput
-          placeholder="Onde?"
-          style={{
-            backgroundColor: "red",
-            position: "absolute",
-            top: 10,
-            width: 300,
-            alignSelf: "center"
-          }}
-        />
-      )}
+          <Busca
+            placeholder="Onde?"
+          />
+        )}
       <AdicionarEvento
         onPress={!editando ? handleSelecionar : handleCriarEvento}
       >
@@ -119,10 +117,10 @@ export default function Mapa(props) {
       </AdicionarEvento>
     </Container>
   ) : (
-    <ViewLottie>
-      <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
-    </ViewLottie>
-  );
+      <ViewLottie>
+        <Lottie source={loading} autoSize resizeMode="contain" autoPlay loop />
+      </ViewLottie>
+    );
 }
 
 const styles = StyleSheet.create({

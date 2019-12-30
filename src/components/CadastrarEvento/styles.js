@@ -18,7 +18,7 @@ export const Seta = styled.TouchableOpacity`
 
 export const Titulo = styled.Text`
   color: #df4723;
-  font-size: 35;
+  font-size: 30;
   font-weight: bold;
   flex: 2;
 `;
